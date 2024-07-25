@@ -3,6 +3,7 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 import Image from "next/image";
+import Link from "next/link";
 
 const ProfileDetails = () => {
   const [profileImage, setProfileImage] = useState<string | ArrayBuffer | null>(null);
@@ -56,24 +57,24 @@ const ProfileDetails = () => {
 
   return (
     <div className="flex flex-col gap-9 p-[24px]">
-      <nav className="flex justify-between items-center px-[20px] bg-[#FFFFFF] rounded-xl text-[16px] font-[600] leading-[24px] h-[78px] sticky top-0 z-10">
-        <Image
+      <nav  className="hidden md:flex justify-between items-center px-[20px] bg-[#FFFFFF] rounded-xl text-[16px] font-[600] leading-[24px] h-[78px] sticky top-0 z-10">
+       <Link href="/"> <Image
           src="/assests/icons/logo.svg"
           alt="brandLogo"
           width={185.5}
           height={40}
-        />
+        /></Link>
         <div className="flex items-center">
-          <button className="rounded-lg h-[46px] w-[122px] flex gap-2 items-center justify-center text-[#737373]">
-            <Image
+          <Link href="/profile" className="rounded-lg h-[46px] w-[122px] flex gap-2 items-center justify-center text-[#737373]">
+           <Image
               src="images/linkicon.svg"
               alt="link-icon"
               width={20}
               height={20}
             />
             Links
-          </button>
-          <button className="flex gap-2 items-center justify-center rounded-lg h-[46px] bg-[#EFEBFF] text-[#633CFF] w-[187px] hover:text-[#633CFF]">
+          </Link>
+          <Link href="/updateprofile" className="flex gap-2 items-center justify-center rounded-lg h-[46px] bg-[#EFEBFF] text-[#633CFF] w-[187px] hover:text-[#633CFF]">
             <Image
               src="/images/user.svg"
               alt="user-circle"
@@ -81,15 +82,22 @@ const ProfileDetails = () => {
               height={20}
             />{" "}
             Profile Details
-          </button>
+          </Link>
         </div>
-        <button className="items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[46px] w-[114px] border border-[#633CFF]">
+        <Link href="/preview" className="flex justify-center items-center text-[#633CFF] hover:bg-[#EFEBFF] rounded-lg h-[46px] w-[114px] border border-[#633CFF]">
           Preview
-        </button>
+        </Link>
       </nav>
 
-      <div className="flex items-center gap-10 w-[100%]">
-        <div className="flex justify-center items-center w-[40%] bg-[#FFFFFF] h-[834px] rounded-xl">
+      <nav className="flex md:hidden sticky top-0 z-10 items-center justify-between bg-[#ffff] p-2">
+					<Link href="/"><Image src="/images/solar.png" alt="" width={50} height={50}/> </Link>
+						<Link href="/profile" className="flex h-[42px] w-[74px] rounded-lg bg-[#EFEBFF]"><Image src="/images/links.png" alt="" width={74} height={42}/></Link>
+						<Link href="/updateprofile" className="w-[74px] h-[42px] py-[11px px-[27px rounded-lg flex items-center"><Image src="/images/usercircle.png" alt="" width={30} height={30}/></Link>
+						<Link href="/preview" className="w-[52px h-[42px rounded-lg py-[11px px-[16px"><Image src="/images/eye.png" alt="" width={42} height={52}/></Link>
+				</nav>
+
+      <div className="flex flex-col lg:flex-row items-center gap-10 w-[100%]">
+        <div className="flex justify-center items-center w-full lg:w-[40%] bg-[#FFFFFF] md:h-[834px] rounded-xl">
           <div className="flex justify-center h-[631px]">
             <Image
               src="/assests/icons/frame1.svg"
@@ -104,7 +112,7 @@ const ProfileDetails = () => {
               width={285}
               height={611}
             />
-            <div className="absolute mt-14 flex flex-col gap-12 items-center justify-center w-[20%] p-[5px]">
+            <div className="absolute mt-14 flex flex-col gap-12 items-center justify-center lg:w-[20%] p-[5px]">
               <div className="bg-[#EEEEEE] h-[96px] w-[96px] rounded-[50%]">
                 {renderProfileImage(submittedData.profileImage)}
               </div>
@@ -126,8 +134,8 @@ const ProfileDetails = () => {
             </div>
           </div>
         </div>
-        <div className="w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
-          <div className="h-[739px] flex flex-col gap-8">
+        <div className="lg:w-[60%] flex flex-col justify-between bg-[#FFFFFF] h-[834px] rounded-xl">
+          <div className="lg:h-[739px] flex flex-col gap-8">
             <div className="flex flex-col px-[40px] py-3 gap-5">
               <h1 className="text-[#333333] leading-[48px] text-[32px] font-[700]">
                 Profile Details
@@ -138,11 +146,11 @@ const ProfileDetails = () => {
             </div>
             <div className="">
               <form onSubmit={handleSubmit} className="flex flex-col gap-10">
-                <div className='flex flex-col p-[40px] gap-10'>
-                  <div className="flex items-center p-5  bg-[#FAFAFA] rounded-xl w-full h-auto">
-                    <p className="text-[#737373] text-[16px] font-normal w-[40%]">Profile picture</p>
-                    <div className="flex items-center gap-2 w-[60%] relative">
-                      <label htmlFor="profileImage" className="cursor-pointer flex flex-col items-center justify-center w-[65%] h-[193px] bg-[#EFEBFF] rounded-xl relative overflow-hidden">
+                <div className='flex flex-col md:p-[40px] gap-10'>
+                  <div className="flex flex-col md:flex-row items-center p-5  bg-[#FAFAFA] rounded-xl w-full h-auto">
+                    <p className="text-[#737373] text-[16px] font-normal md:w-[40%]">Profile picture</p>
+                    <div className="flex flex-col md:flex-row items-center gap-2 md:w-[60%] relative">
+                      <label htmlFor="profileImage" className="cursor-pointer flex flex-col items-center justify-center md:w-[65%] w-[100%] h-[193px] bg-[#EFEBFF] rounded-xl relative overflow-hidden">
                         {profileImage && (
                           <img src={typeof profileImage === 'string' ? profileImage : ''} alt="Profile" className="absolute inset-0 w-full h-full object-cover rounded-xl" />
                         )}
@@ -164,49 +172,49 @@ const ProfileDetails = () => {
                         className="hidden"
                         id="profileImage"
                       />
-                      <p className="font-normal text-[12px] leading-[18px]">
+                      <p className="font-normal text-center md:text-start text-[12px] leading-[18px]">
                         Image must be below 1024x1024px. Use PNG or JPG format.
                       </p>
                     </div>
                   </div>
 
                   <div className="flex flex-col gap-5 bg-[#FAFAFA] p-5 rounded-xl">
-                    <div className="flex justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
                       <label className="block text-gray-700">First name</label>
                       <input
                         type="text"
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
-                        className="w-[60%] px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="md:w-[60%] px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                         placeholder="e.g., John"
                       />
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
                       <label className="block text-gray-700">Last name</label>
                       <input
                         type="text"
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
-                        className="w-[60%] px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="md:w-[60%] px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                         placeholder="e.g., Doe"
                       />
                     </div>
-                    <div className="flex justify-between">
+                    <div className="flex flex-col md:flex-row justify-between">
                       <label className="block text-gray-700">Email</label>
                       <input
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="w-[60%] px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        className="md:w-[60%] px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                         placeholder="e.g., email@example.com"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="h-[95px] flex justify-end items-center font-[600] text-[16px] leading-[24px] text-[#FFFFFF] px-[40px] border-t-[2px] border-t-[#ececec] relative overflow-hidden">
+                <div className="h-[95px] flex justify-end items-center font-[600] text-[16px] leading-[24px] text-[#FFFFFF] px-[40px] border-t-[2px] border-t-[#ececec] relative overflow-hidden -mt-12 md:-mt-[unset]">
                    {message && <span className="text-[#FAFAFA] bg-[#333333] h-[46px] px-[24px] rounded-xl flex items-center gap-1 text-[16px] relative right-44"><img src="images/floppy.svg" alt="" /> {message}</span>}
-                  <button type="submit" className="bg-[#633CFF] rounded-lg h-[46px] w-[91px]">
+                  <button type="submit" className="bg-[#633CFF] rounded-lg h-[46px] w-[100%] md:w-[91px]">
                     Save
                   </button>
                 </div>
