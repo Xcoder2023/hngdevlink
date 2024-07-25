@@ -108,7 +108,7 @@ const Register:FC=()=>{
 
 
   return (
-    <div className='bg-[#fafafa] flex items-center flex-col m-auto'>
+    <div className='bg-[#fafafa] flex items-center flex-col w-[100%] m-auto'>
       <div className='absolute top-[50px] flex flex-col'>
         <div className='flex flex-center items-center m-auto pb-4'>
           <svg width="25" height="25" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -121,7 +121,7 @@ const Register:FC=()=>{
           <h1 className='font-[700] text-start text-[1.5rem]'>Create account</h1>
           <p className='text-[#737373] text-[14px] my-2'>Let’s get you started sharing your links!</p>
 
-          <div className='w-[360px] flex flex-col'>
+          <div className='md:w-[360px] flex flex-col'>
             <form onSubmit={handleSubmit} className='mt-6'>
 
               <div className='flex flex-col'>
