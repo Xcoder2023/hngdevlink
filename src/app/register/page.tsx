@@ -3,6 +3,8 @@
 import React, { FC, FormEvent, useState } from 'react'
 import axios from 'axios';
 import { message } from 'antd';
+import Image from 'next/image';
+import Link from 'next/link'
 
 interface FormState {
   email: string;
@@ -11,11 +13,6 @@ interface FormState {
   error: string | null;
   successMessage: string | null;
 }
-
-import Image from 'next/image'
-import Link from 'next/link'
-import logo from '../../../public/images/logo.png'
-import {toast} from 'react-toastify'
 
 const Register:FC=()=>{
   const [formState, setFormState] = useState<FormState>({
@@ -36,16 +33,15 @@ const Register:FC=()=>{
     }));
   };
 
-  const [email, setEmail] = useState<string>("");
-  const [password1, setPassword1] = useState<string>("");
-  const [password2, setPassword2] = useState<string>("");
   const [emailError, setEmailError] = useState<boolean>(false);
   const [password1Error, setPassword1Error] = useState<boolean>(false);
   const [password2Error, setPassword2Error] = useState<boolean>(false);
   const [passwordMatchError, setPasswordMatchError] = useState<boolean>(false);
   const [isEmailFocused, setIsEmailFocused] = useState<boolean>(false)
-  const [isError, setIsError] = useState<boolean>(false)
+  const [isPasswordFocused, setIsPasswordFocused] = useState<boolean>(false)
+  const [isPassword2Focused, setIsPassword2Focused] = useState<boolean>(false)
   const [file, setFile] = useState<File | null>(null);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
 
  
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,6 +51,10 @@ const Register:FC=()=>{
   
     if (!email || !password || !confirmPassword) {
       message.error('Email, password, and confirm password are required!');
+      setPassword1Error(true)
+      setPassword2Error(true)
+      setEmailError(true)
+      setPasswordMatchError(true)
       setFormState(prevState => ({
         ...prevState,
         error: 'Email, password, and confirm password are required!',
@@ -141,18 +141,20 @@ const Register:FC=()=>{
                   <input 
                     type="email"
                     name="email"
+                    placeholder='e.g. alex@email.com'
                     value={formState.email}
                     onChange={handleChange}
                     onFocus={() => setIsEmailFocused(true)}
+                    onBlur={() => setIsEmailFocused(false)}
                     // onChange={(e)=>setEmail(e.target.value)}
                     className={`w-full h-[44px] placeholder-[#737373] placeholder-[14px] text-[0.8rem] pl-[3rem]
-                      py-1 mb-4 rounded-lg border-[1px] focus:outline-0 pr-4 ${
-                        emailError ? 'border-[#FF3939]' : 'border-[#D9D9D9] focus:border-[#633CFF] focus:ring-opacity-20'
-                    }`}
+                      py-1 mb-4 rounded-lg border-[1px] focus:outline-0 pr-4 focus:border-[#633CFF] ${
+                        emailError ? 'border-[#FF3939]' : 'border-[#D9D9D9]' 
+                    } ${isEmailFocused ? 'bg-white shadow-custom  ' : 'bg-transparent' }`}
                   />
                 </div>
               </div>
-
+                        
               <div className='flex flex-col'>
 
                 <span className='text-[13px] text-[#737373]'>Create Password</span>
@@ -172,13 +174,18 @@ const Register:FC=()=>{
                   <input 
                     type="password"
                     name="password"
+                    placeholder='At least 8 characters'
                     value={formState.password}
                     onChange={handleChange}
+                    onFocus={()=>setIsPasswordFocused(true)}
+                    onBlur={()=>setIsPasswordFocused(false)}
                     className={`w-full h-[44px] placeholder-[#737373] placeholder-[14px] text-[0.8rem] pl-[3rem]
                       py-1 mb-4 rounded-lg border-[1px] focus:outline-0 pr-4 ${
                         password1Error ? 'border-[#FF3939]' : 'border-[#D9D9D9] focus:border-[#633CFF] focus:ring-opacity-20'
-                    }`}
+                    } ${isPasswordFocused ?'bg-white shadow-custom border-[#633CFF]' : 'bg-transparent'}`}
                   />
+
+                  
                 </div>
               </div>
 
@@ -197,14 +204,18 @@ const Register:FC=()=>{
                   <input 
                       type="password"
                       name="confirmPassword"
+                      placeholder='At least 8 characters'
                       value={formState.confirmPassword}
                       onChange={handleChange}
+                      onFocus={()=>setIsPassword2Focused(true)}
+                    onBlur={()=>setIsPassword2Focused(false)}
                     className={`w-full h-[44px] placeholder-[#737373] placeholder-[14px] text-[0.8rem] pl-[3rem]
                       py-1 mb-4 rounded-lg border-[1px] focus:outline-0 pr-4 ${
-                      password2Error || passwordMatchError ? 'border-[#FF3939]' : 'border-[#D9D9D9] focus:border-[#633CFF] focus:ring-opacity-20'
-                    }`}
+                      password2Error && passwordMatchError ? 'border-[#FF3939]' : 'border-[#D9D9D9] focus:border-[#633CFF] focus:ring-opacity-20'
+                    }  ${isPassword2Focused ?'bg-white shadow-custom border-[#633CFF]' : ' bg-transparent'}`}
                   />
                 </div>
+                
               </div>
 
 

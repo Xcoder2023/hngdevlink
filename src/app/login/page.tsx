@@ -5,7 +5,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import axios from "axios";
 import { message } from 'antd';
-// import ProfileDetails from "@/components/ProfileDetails";
 
 const Login = () => {
 	const [email, setEmail] = useState('');
@@ -18,8 +17,6 @@ const Login = () => {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validation logic here
     const emailError = email.trim() === '';
     const passwordError = password.trim() === '';
   
@@ -39,7 +36,7 @@ const Login = () => {
         });
         console.log('Login successful:', response.data);
         
-        // Show success message
+  
         message.success('Login successful!');
         
         // Navigate to the profile page
